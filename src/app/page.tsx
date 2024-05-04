@@ -2,6 +2,7 @@
 import { David_Libre } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
+import { Auth0Provider } from '@auth0/auth0-react';
 
 export default function Home() {
   return (
@@ -14,6 +15,5 @@ export default function Home() {
         <Link href='/task-page' className='border border-solid border-white w-20 rounded bg-blue-400 font-bold text-center'>Login</Link>
       </div>
     </>
-    
   );
 }
