@@ -15,15 +15,9 @@ export default function InputField() {
     // Handling form submission
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-
-        // Querying into the PostgreSQL database
-        try {
-            console.log('Executing query...');
-            const result = await sql `SELECT * FROM users;`;
-            console.log('Query result: ', result);
-        } catch (error: any) {
-            console.log(error.message);
-        }
+        const response = await fetch(`/api/info?username=${encodeURIComponent(value)}`);
+        const data = await response.json();
+        console.log(data);
     }
     return (
 
