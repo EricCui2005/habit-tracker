@@ -8,11 +8,12 @@ export default function TaskPage() {
     const [body, setBody] = useState(''); // Value of info body
     const [add, setAdd] = useState(false); // Value to control the add habits field
 
-    // Updating input field
+    // Updating user input field
     const handleUsernameChange  = (event: React.ChangeEvent<HTMLInputElement>) => {
         setUserValue(event.target.value);
     }
 
+    // Updating habit input field
     const handleHabitChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setHabitValue(event.target.value);
     }
