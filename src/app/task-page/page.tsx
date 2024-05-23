@@ -57,9 +57,9 @@ export default function TaskPage() {
             </div>
             <button type="submit" className="border border-solid border-white w-20 rounded bg-blue-400 font-bold text-center">Submit</button>
         </form>
-        <div className=" m-4 bg-white w-80 h-80 rounded-md text-black">
+        <div className=" m-4 bg-white w-80 h-80 rounded-md text-black flex flex-col justify-center- items-center">
             {habits.map((habit: string) => (
-              <div key={habit}>
+              <div key={habit} className="m-1 mt-2 bg-yellow-300 w-60 h-10 rounded-md text-black flex flex-col justify-center items-center">
                 <p>{habit}</p>
               </div>
             ))}
