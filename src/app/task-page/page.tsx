@@ -5,7 +5,7 @@ export default function TaskPage() {
 
     const [userValue, setUserValue] = useState(''); // Value of username input field
     const [habitValue, setHabitValue] = useState(''); // Value of habit input field
-    const [body, setBody] = useState(''); // Value of info body
+    const [habits, setHabits] = useState([]); // Value of loaded habits array
     const [add, setAdd] = useState(false); // Value to control the add habits field
 
     // Updating user input field
@@ -23,7 +23,8 @@ export default function TaskPage() {
         event.preventDefault();
         const response = await fetch(`/api/info?username=${encodeURIComponent(userValue)}`);
         const result = await response.json();
-        setBody(result[0].habits);
+        console.log(result);
+        setHabits(result[0].habits);
     }
 
     // Adding a habit to a user's habit list
@@ -56,10 +57,12 @@ export default function TaskPage() {
             </div>
             <button type="submit" className="border border-solid border-white w-20 rounded bg-blue-400 font-bold text-center">Submit</button>
         </form>
-        <div className=" m-4 bg-white w-80 h-80 rounded-md">
-          <p className="text-black">
-            {body}
-          </p>
+        <div className=" m-4 bg-white w-80 h-80 rounded-md text-black">
+            {habits.map((habit: string) => (
+              <div key={habit}>
+                <p>{habit}</p>
+              </div>
+            ))}
         </div>
         <button onClick={toggleAdd} className="border border-solid border-white w-20 rounded bg-blue-400 font-bold text-center">Add</button>
         {add && <form className="m-4 flex flex-col items-center gap-6" onSubmit={handleAdd}>
