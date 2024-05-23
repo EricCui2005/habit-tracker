@@ -10,6 +10,7 @@ export async function POST(request: any) {
         } else if (!username) {
             return NextResponse.json({error: 'Username parameter is required'}, {status: 400});
         }
+        console.log(`Adding habit ${habit} to ${username}`);
         const result = sql `UPDATE users SET habits = array_append(habits, ${habit}) WHERE username = ${username};`;
         return NextResponse.json(result, {status: 200});
     } catch (error: any) {

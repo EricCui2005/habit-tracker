@@ -17,6 +17,7 @@ export async function GET(request: any) {
         if (!username) {
             return NextResponse.json({ error: 'Username parameter is required' }, { status: 400 });
         }
+        console.log(`Fetching habit data for ${username}`);
 
         // SQL query using `username`
         const result = await sql`SELECT * FROM users WHERE username = ${username};`;
