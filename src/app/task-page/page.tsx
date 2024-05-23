@@ -28,13 +28,15 @@ export default function TaskPage() {
 
     // Adding a habit to a user's habit list
     const handleAdd = async (event: any) => {
+        event.preventDefault();
+        // Sending a POST request to the API endpoint
         const response = await fetch(`/api/add`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            username: 'Eric',
+            username: userValue,
             habit: habitValue,
           }),
         });
