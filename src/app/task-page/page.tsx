@@ -34,7 +34,7 @@ export default function TaskPage() {
           },
           body: JSON.stringify({
             username: 'Eric',
-            habit: 'Running'
+            habit: habitValue,
           }),
         });
         console.log(response);
