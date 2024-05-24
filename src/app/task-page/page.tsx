@@ -7,6 +7,7 @@ export default function TaskPage() {
     const [habitValue, setHabitValue] = useState(''); // Value of habit input field
     const [habits, setHabits] = useState([]); // Value of loaded habits array
     const [add, setAdd] = useState(false); // Value to control the add habits field
+    const [completedHabits, setCompletedHabits] = useState<{[key: string]: boolean}>({}); // Dictionary representing whether each habit card has been clicked or not
 
     // Updating user input field
     const handleUsernameChange  = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,10 +22,29 @@ export default function TaskPage() {
     // Handling form submission
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+
+        // Sending a GET request to the API endpoint
         const response = await fetch(`/api/info?username=${encodeURIComponent(userValue)}`);
         const result = await response.json();
-        console.log(result);
+
+        // Updating the habits array and the completed habits dictionary
         setHabits(result[0].habits);
+        const habitsInit = result.reduce((acc: any, curr: any) => {
+            acc[curr.habit] = false;
+            return acc;
+        }, {});
+        setCompletedHabits(habitsInit);
+    }
+
+    // Handling habit card click
+    const handleHabitClick = (habit: string) => {
+      console.log(habit);
+      setCompletedHabits((prevState: {[key: string]: boolean}) => {
+        return {
+          ...prevState,
+          [habit]: !prevState[habit],
+        }
+      })
     }
 
     // Adding a habit to a user's habit list
@@ -55,12 +75,12 @@ export default function TaskPage() {
                     <input placeholder="Username" className="text-black ml-2 pl-1 rounded-md" type="text" value={userValue} onChange={handleUsernameChange} />
                 </label>
             </div>
-            <button type="submit" className="border border-solid border-white w-20 rounded bg-blue-400 font-bold text-center">Submit</button>
+            <button type="submit" className="border border-solid border-white w-20 rounded bg-blue-400 font-bold text-cente">Submit</button>
         </form>
         <div className=" m-4 bg-white w-80 h-80 rounded-md text-black flex flex-col justify-center- items-center">
             {habits.map((habit: string) => (
-              <div key={habit} className="m-1 mt-2 bg-yellow-300 w-60 h-10 rounded-md text-black flex flex-col justify-center items-center">
-                <p>{habit}</p>
+              <div key={habit} className={`m-1 mt-2 ${completedHabits[habit] ? 'bg-green-300' : 'bg-yellow-300'} w-60 h-10 rounded-md text-black flex flex-col justify-center items-center`} onClick={() => handleHabitClick(habit)}>
+                {habit}
               </div>
             ))}
         </div>
