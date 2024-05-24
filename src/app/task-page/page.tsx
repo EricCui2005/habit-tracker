@@ -77,11 +77,11 @@ export default function TaskPage() {
             </div>
             <button type="submit" className="border border-solid border-white w-20 rounded bg-blue-400 font-bold text-cente">Submit</button>
         </form>
-        <div className=" m-4 bg-white w-80 h-80 rounded-md text-black flex flex-col justify-center- items-center">
+        <div className=" m-4 bg-white w-80 h-80 rounded-md text-black flex flex-col justify-center items-center">
             {habits.map((habit: string) => (
-              <div key={habit} className={`m-1 mt-2 ${completedHabits[habit] ? 'bg-green-300' : 'bg-yellow-300'} w-60 h-10 rounded-md text-black flex flex-col justify-center items-center`} onClick={() => handleHabitClick(habit)}>
+              <button key={habit} className={`m-1 ${completedHabits[habit] ? 'bg-green-300' : 'bg-yellow-300'} w-60 h-10 rounded-md text-black flex flex-col justify-center items-center`} onClick={() => handleHabitClick(habit)}>
                 {habit}
-              </div>
+              </button>
             ))}
         </div>
         <button onClick={toggleAdd} className="border border-solid border-white w-20 rounded bg-blue-400 font-bold text-center">Add</button>
