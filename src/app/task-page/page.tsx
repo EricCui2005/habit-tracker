@@ -20,7 +20,7 @@ export default function TaskPage() {
         setHabitValue(event.target.value);
     }
 
-    // Handling form submission
+    // Handling form submission to fetch habits from endpoint
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
@@ -30,16 +30,16 @@ export default function TaskPage() {
 
         // Updating the habits array and the completed habits dictionary
         setHabits(result[0].habits);
-        const habitsInit = result.reduce((acc: any, curr: any) => {
-            acc[curr.habit] = false;
+        const habitsInit = habits.reduce((acc: any, curr: any) => {
+            acc[curr] = false;
             return acc;
         }, {});
+        console.log(completedHabits);
         setCompletedHabits(habitsInit);
     }
 
     // Handling habit card click
     const handleHabitClick = (habit: string) => {
-      console.log(habit);
       setCompletedHabits((prevState: {[key: string]: boolean}) => {
         return {
           ...prevState,
@@ -57,6 +57,10 @@ export default function TaskPage() {
       if (Object.values(completedHabits).every((completion: boolean) => completion == true)) {
         setCompleted(true);
       }
+      else {
+        setCompleted(false);
+      }
+      console.log(completed);
     }, [completedHabits]);
 
     // Adding a habit to a user's habit list
@@ -74,7 +78,6 @@ export default function TaskPage() {
             habit: habitValue,
           }),
         });
-        console.log(response);
     }
 
     const toggleAdd = () => {
