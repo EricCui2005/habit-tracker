@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function TaskPage() {
 
@@ -8,6 +8,7 @@ export default function TaskPage() {
     const [habits, setHabits] = useState([]); // Value of loaded habits array
     const [add, setAdd] = useState(false); // Value to control the add habits field
     const [completedHabits, setCompletedHabits] = useState<{[key: string]: boolean}>({}); // Dictionary representing whether each habit card has been clicked or not
+    const [completed, setCompleted] = useState(false); // Controls completion of daily habits
 
     // Updating user input field
     const handleUsernameChange  = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,12 +45,24 @@ export default function TaskPage() {
           ...prevState,
           [habit]: !prevState[habit],
         }
-      })
+      });
     }
+
+    // Checks if all habits have been completed after each habit click
+    useEffect(() => {
+      console.log(completedHabits);
+
+      // Extracting the `completedHabits` dictionary into an array of boolean values
+      // and using 
+      if (Object.values(completedHabits).every((completion: boolean) => completion == true)) {
+        setCompleted(true);
+      }
+    }, [completedHabits]);
 
     // Adding a habit to a user's habit list
     const handleAdd = async (event: any) => {
         event.preventDefault();
+
         // Sending a POST request to the API endpoint
         const response = await fetch(`/api/add`, {
           method: 'POST',
@@ -68,7 +81,7 @@ export default function TaskPage() {
         setAdd(!add);
     }
     return (
-      <div className="flex flex-col justify-center items-center">
+      <div className={`flex flex-col justify-center items-center ${completed ? 'bg-green' : 'bg-blue'}`}>
         <form className="m-4 flex flex-col items-center gap-6" onSubmit={handleSubmit}>
             <div>
                 <label>
@@ -77,7 +90,7 @@ export default function TaskPage() {
             </div>
             <button type="submit" className="border border-solid border-white w-20 rounded bg-blue-400 font-bold text-cente">Submit</button>
         </form>
-        <div className=" m-4 bg-white w-80 h-80 rounded-md text-black flex flex-col justify-center items-center">
+        <div className="m-4 bg-white w-80 h-80 rounded-md text-black flex flex-col justify-center items-center">
             {habits.map((habit: string) => (
               <button key={habit} className={`m-1 ${completedHabits[habit] ? 'bg-green-300' : 'bg-yellow-300'} w-60 h-10 rounded-md text-black flex flex-col justify-center items-center`} onClick={() => handleHabitClick(habit)}>
                 {habit}
