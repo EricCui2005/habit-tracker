@@ -30,13 +30,16 @@ export default function TaskPage() {
 
         // Updating the habits array and the completed habits dictionary
         setHabits(result[0].habits);
-        const habitsInit = habits.reduce((acc: any, curr: any) => {
-            acc[curr] = false;
-            return acc;
-        }, {});
-        console.log(completedHabits);
-        setCompletedHabits(habitsInit);
     }
+
+    // Initializing the completedHabits object once habits are loaded
+    useEffect(() => {
+      const habitsInit = habits.reduce((acc: any, curr: any) => {
+        acc[curr] = false;
+        return acc;
+      }, {});
+      setCompletedHabits(habitsInit);
+      }, [habits]);
 
     // Handling habit card click
     const handleHabitClick = (habit: string) => {
@@ -50,17 +53,21 @@ export default function TaskPage() {
 
     // Checks if all habits have been completed after each habit click
     useEffect(() => {
-      console.log(completedHabits);
 
       // Extracting the `completedHabits` dictionary into an array of boolean values
       // and using 
-      if (Object.values(completedHabits).every((completion: boolean) => completion == true)) {
+      if (Object.values(completedHabits).length !=0 && Object.values(completedHabits).every((completion: boolean) => completion == true)) {
         setCompleted(true);
       }
       else {
         setCompleted(false);
       }
     }, [completedHabits]);
+
+    // Checking whenever completedHabits and completed change
+    useEffect(() => {
+      console.log(completedHabits, completed);
+    }, [completedHabits, completed]);
 
     // Adding a habit to a user's habit list
     const handleAdd = async (event: any) => {
