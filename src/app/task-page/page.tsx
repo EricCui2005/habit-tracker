@@ -83,7 +83,7 @@ export default function TaskPage() {
         setAdd(!add);
     }
     return (
-      <div className={`flex flex-col justify-center items-center ${completed ? 'bg-green-400' : 'bg-blue'}`}>
+      <div className={`flex flex-col justify-center items-center`}>
         <form className="m-4 flex flex-col items-center gap-6" onSubmit={handleSubmit}>
             <div>
                 <label>
@@ -108,6 +108,10 @@ export default function TaskPage() {
             </div>
             <button type="submit" className="border border-solid border-white w-20 rounded bg-blue-400 font-bold text-center">Submit</button>
         </form>}
+        {completed && 
+          <div className="m-4 p-4 text-white bg-blue-400 w-80 h-20 border border-solid font-bold border-white rounded-md text-black flex flex-col justify-center items-center">
+            <h1>Congratulations! You've completed all your habits for today!</h1>
+          </div>}
       </div>
     )
 }
