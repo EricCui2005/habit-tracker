@@ -60,7 +60,6 @@ export default function TaskPage() {
       else {
         setCompleted(false);
       }
-      console.log(completed);
     }, [completedHabits]);
 
     // Adding a habit to a user's habit list
@@ -84,7 +83,7 @@ export default function TaskPage() {
         setAdd(!add);
     }
     return (
-      <div className={`flex flex-col justify-center items-center ${completed ? 'bg-green' : 'bg-blue'}`}>
+      <div className={`flex flex-col justify-center items-center ${completed ? 'bg-green-400' : 'bg-blue'}`}>
         <form className="m-4 flex flex-col items-center gap-6" onSubmit={handleSubmit}>
             <div>
                 <label>
