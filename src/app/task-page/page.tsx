@@ -117,7 +117,7 @@ export default function TaskPage() {
         </form>}
         {completed && 
           <div className="m-4 p-4 text-white bg-blue-400 w-80 h-20 border border-solid font-bold border-white rounded-md text-black flex flex-col justify-center items-center">
-            <h1>Congratulations! You've completed all your habits for today!</h1>
+            <h1>Congratulations! You&apos;ve completed all your habits for today!</h1>
           </div>}
       </div>
     )
